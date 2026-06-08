@@ -1,0 +1,32 @@
+<div class="input-container">
+  @for(field of fields; track field.controlName) {
+  <div class="mb-3">
+    <label class="form-label" [for]="field.id">
+      {{ field.label }}
+    </label>
+
+    @if(field.directive === 'alphabets') {
+    <input class="form-control" [id]="field.id" [type]="field.fieldType" title="field.title"
+      [placeholder]="field.placeholder" [formControl]="getControl(field.controlName)" appAlphabetsOnlyDirective />
+    } @else if(field.directive === 'numbers') {
+    <input class="form-control" [id]="field.id" [type]="field.fieldType" title="title" [placeholder]="field.placeholder"
+      [formControl]="getControl(field.controlName)" appNoAlphabetsDirective />
+    } @else {
+    <input class="form-control" [id]="field.id" [type]="field.fieldType" title="field.title"
+      [placeholder]="field.placeholder" [formControl]="getControl(field.controlName)" />
+    }
+
+    <ng-container>
+      @if(getControl(field.controlName).touched && getControl(field.controlName).hasError('required')) {
+      <div class="error">{{ field.label }} is required</div>
+      } @if(getControl(field.controlName).touched && getControl(field.controlName).hasError('email')) {
+      @if(getControl(field.controlName).hasError('maxlength')) {
+      <div class="error">maximum 20 characters</div>
+      } @else {
+      <div class="error">Enter valid {{ field.label }} address</div>
+      }
+      }
+    </ng-container>
+  </div>
+  }
+</div>
