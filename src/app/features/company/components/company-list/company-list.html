@@ -1,0 +1,22 @@
+<app-panel>
+  <ng-container body>
+    <app-page-table-title [childTableTitle]="pageTableTitle">
+      <div class="button-wrapper">
+        <button type="button" class="btn btn-primary" (click)="onAddCompany()">+ Add New Company</button>
+      </div>
+    </app-page-table-title>
+
+    <div class="search-wrapper">
+      <app-search-results input>
+        <span>Search by:&nbsp;</span>
+        <input type="text" placeholder="Name" (input)="onSearchName($event)">
+      </app-search-results>
+    </div>
+
+    <!-- @let companies = (companies() | async); -->
+
+    <app-data-table [columns]="companiesTableColumns" [data]="companies() || []" [mode]="mode" (edit)="onEdit($event)"
+      (delete)="onDelete($event)" [pageTitle]="pageTableTitle"
+      (selectedItem)="navigateToDetails($event)"></app-data-table>
+  </ng-container>
+</app-panel>

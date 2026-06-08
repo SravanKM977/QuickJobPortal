@@ -1,0 +1,52 @@
+@if(data?.length) {
+<table class="table table-hover table-success table-bordered">
+  <thead class="table-light">
+    <tr>
+      @for(column of columns; track column.field) {
+      <th scope="col">{{column.header | titlecase}}</th>
+      }
+      @if(mode === 'add') {
+      <th scope="col">Action</th>
+      }
+    </tr>
+  </thead>
+  <tbody class="table-group-divider">
+    @for(item of data; track item.field) {
+    <tr>
+      @for(column of columns; track column.field) {
+      @if(column.field === "name") {
+      <td scope="row" (click)="selectItem(item)" [style]="'cursor: pointer'"
+        [title]="'View details for ' + ((item.fullName | fullName) || item.name)">
+        {{(item.fullName | fullName) || item.name}}
+      </td>
+      }@else if (column.field === "department") {
+      <td scope="row">{{item.department?.name}}</td>
+      } @else if (column.field === "phone") {
+      <td scope="row">{{ item[column.field] | allPhoneFormats}}</td>
+      } @else if (column.field === "gender") {
+      <td scope="row">{{ item[column.field] | genderFormat}}</td>
+      } @else if (column.field === "status") {
+      <td scope="row" [class]="item[column.field] | statusColor">{{(item[column.field] | statusLabel)}}</td>
+      } @else if(column.field === "specialization") {
+      <td scope="row" [appDoctorType]="item.specialization">{{item[column.field]}}</td>
+      } @else {
+      <td scope="row">{{ item[column.field]}}</td>
+      }
+      }
+      @if(mode === 'add') {
+      <td scope="row">
+        <img src="assets/images/pencil.png" alt="" (click)="onEdit(item)" />
+        <img src="assets/images/delete.png" alt="" (click)="onDelete(item)" />
+      </td>
+      }
+    </tr>
+    }
+  </tbody>
+</table>
+} @else if (!(data?.length)) {
+<div class="no-records">
+  <h3>
+    No {{pageTitle}}
+  </h3>
+</div>
+}

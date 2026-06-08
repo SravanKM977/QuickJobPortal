@@ -1,0 +1,17 @@
+{
+  "members": [],
+  "companies": [
+    {
+      "id": "1",
+      "name": "Google",
+      "industry": "Technology",
+      "location": "California",
+      "website": "https://google.com",
+      "email": "hr@google.com",
+      "phone": "1111111111",
+      "employeeCount": 180000,
+      "description": "Global technology company"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

@@ -1,0 +1,10 @@
+<app-panel>
+  <app-page-title [childTitle]="pageTitle" header></app-page-title>
+
+  <form [formGroup]="companyForm" (ngSubmit)="submit()" header>
+    <app-form-field [fields]="fields" [companyForm]="companyForm">
+    </app-form-field>
+
+    <app-button-wrapper [mode]="mode"></app-button-wrapper>
+  </form>
+</app-panel>

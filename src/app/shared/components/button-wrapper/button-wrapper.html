@@ -1,0 +1,21 @@
+<ng-container>
+  @if(mode === 'add') {
+  <div class="button-wrapper">
+    <button type="submit" class="btn btn-primary">
+      Add
+    </button>
+  </div>
+  } @else if(mode === 'edit') {
+  <div class="button-wrapper">
+    <div class="button-container">
+      <a class="cancel-link" (click)="onCancel($event)">
+        Cancel
+      </a>
+
+      <button type="submit" class="btn btn-primary">
+        Update
+      </button>
+    </div>
+  </div>
+  }
+</ng-container>
