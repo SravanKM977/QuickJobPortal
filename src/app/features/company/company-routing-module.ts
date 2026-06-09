@@ -14,14 +14,16 @@ const companyRoutes: Routes = [
     component: CompanyForm,
   },
   {
+    path: 'edit/:id',
+    component: CompanyForm,
+  },
+  {
     path: 'details',
     component: CompanyDetails,
-    children: [
-      {
-        path: ':id',
-        component: CompanyDetails,
-      },
-    ],
+  },
+  {
+    path: 'details/:id',
+    component: CompanyDetails,
   },
 ];
 

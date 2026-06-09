@@ -5,6 +5,6 @@
     <app-form-field [fields]="fields" [companyForm]="companyForm">
     </app-form-field>
 
-    <app-button-wrapper [mode]="mode"></app-button-wrapper>
+    <app-button-wrapper [mode]="mode" (cancel)="onCancel()"></app-button-wrapper>
   </form>
 </app-panel>

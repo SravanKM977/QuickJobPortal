@@ -41,19 +41,6 @@ export class CompanyList implements OnInit {
 
   onAddCompany() {
     this.router.navigate(['/layout/companies/add']);
-    // this.companyService
-    //   .addCompanies({
-    //     description: 'awdawdaw',
-    //     email: 'dawdawd',
-    //     employeeCount: 2,
-    //     id: 2,
-    //     industry: 'dawdawd',
-    //     location: 'dawdawd',
-    //     name: 'dawdawd',
-    //     phone: 'dawdawd',
-    //     website: 'dawdawdawd',
-    //   })
-    //   .subscribe();
   }
 
   onSearchName(event: Event) {
@@ -62,6 +49,7 @@ export class CompanyList implements OnInit {
 
   onEdit(company: Company) {
     this.mode = 'edit';
+    this.router.navigate(['layout/companies/edit', company.id]);
   }
 
   onDelete(company: Company) {
@@ -81,6 +69,7 @@ export class CompanyList implements OnInit {
   }
 
   navigateToDetails(company: Company) {
+    this.companyStateService.setSelectedCompany(company);
     this.router.navigate(['/layout/companies/details', company.id]);
   }
 }

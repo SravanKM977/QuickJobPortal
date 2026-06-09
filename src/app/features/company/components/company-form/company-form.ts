@@ -6,7 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Panel } from '../../../../shared/components/panel/panel';
 import { CompanyService } from '../../../../core/services/company.service';
 import { PageTitle } from '../../../../shared/components/page-title/page-title';
@@ -16,6 +16,8 @@ import { FormInputFontDirective } from '../../../../shared/directives/form-input
 import { FormField } from '../../../../shared/components/form-field/form-field';
 import { FieldType } from '../../../../shared/enum/field-type.enum';
 import { DynamicField } from '../../../../shared/models/dynamic-field.interface';
+import { Company } from '../../models/company.model';
+import { exhaustMap, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-company-form',
@@ -33,10 +35,12 @@ import { DynamicField } from '../../../../shared/models/dynamic-field.interface'
 })
 export class CompanyForm {
   private companyService = inject(CompanyService);
+  private route = inject(ActivatedRoute);
 
   companyForm!: FormGroup;
   mode = 'add';
   pageTitle: string = 'Company Form';
+  companyId!: string;
 
   fields: DynamicField[] = [
     {
@@ -77,7 +81,7 @@ export class CompanyForm {
       for: 'email',
       id: 'email',
       placeholder: 'Enter Company email',
-      directive: 'alphabets',
+      directive: 'none',
     },
     {
       label: 'Phone',
@@ -101,10 +105,13 @@ export class CompanyForm {
     },
   ];
 
+  private submit$ = new Subject<void>();
+
   constructor(private router: Router, private fb: FormBuilder) {}
 
   ngOnInit() {
     this.initializeCompanyForm();
+    this.patchForm();
   }
 
   initializeCompanyForm() {
@@ -112,56 +119,87 @@ export class CompanyForm {
       name: ['', Validators.required],
       industry: ['', Validators.required],
       location: ['', Validators.required],
-      website: ['', Validators.required],
-      email: ['', [Validators.email, Validators.maxLength(20)]],
+      website: [''],
+      email: ['', [Validators.email, Validators.maxLength(40)]],
       phone: [''],
       employeeCount: [0],
       description: [''],
     });
   }
 
+  patchForm() {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.companyId = id;
+      this.mode = 'edit';
+      this.loadCompany(this.companyId);
+    }
+  }
+
+  loadCompany(id: string) {
+    this.companyService.getCompanyById(id).subscribe((res) => {
+      this.companyForm.patchValue(res!);
+    });
+  }
+
+  onCancel() {
+    this.goToCompaniesList();
+  }
+
+  goToCompaniesList() {
+    this.mode = 'add';
+    this.companyForm.markAsUntouched();
+    this.companyForm.reset();
+    this.router.navigate(['layout/companies']);
+  }
+
   submit() {
     if (this.companyForm.invalid) {
-      this.companyForm.markAsTouched();
+      Object.keys(this.companyForm.controls).forEach((key) => {
+        const control = this.companyForm.get(key);
+
+        console.log(key, 'valid:', control?.valid, 'errors:', control?.errors);
+      });
+      this.companyForm.markAllAsTouched();
       console.log('submit invalid');
       return;
     } else {
       console.log('submit valid');
-      if ((this.mode = 'add')) {
+      if (this.mode === 'add') {
         this.addCompanies();
-      } else if ((this.mode = 'edit')) {
+      } else if (this.mode === 'edit') {
         this.updateCompanies();
       }
+      this.submit$.next();
     }
   }
 
   addCompanies() {
-    const addCompany = this.companyForm.value;
-    this.companyService.addCompanies(addCompany).subscribe(
-      (res) => {
-        if (res) {
-          this.mode = 'add';
-          this.router.navigate(['/layout/companies']);
-        }
-      },
-      (error) => {
-        console.error('error adding company', error);
-      }
-    );
+    const addCompany: Company = {
+      ...this.companyForm.getRawValue(),
+      id: this.companyId,
+    };
+    this.companyService.addCompanies(addCompany).subscribe({
+      next: () => this.goToCompaniesList(),
+      error: (error) => console.error(error),
+    });
   }
 
   updateCompanies() {
-    const updateCompany = this.companyForm.value;
-    this.companyService.updateCompanies(updateCompany).subscribe(
-      (res) => {
-        if (res) {
-          this.mode = 'add';
-          this.router.navigate(['/layout/companies']);
-        }
-      },
-      (error) => {
-        console.error('error updating company', error);
-      }
-    );
+    this.submit$
+      .pipe(
+        exhaustMap(() => {
+          const updateCompany: Company = {
+            ...this.companyForm.getRawValue(),
+            id: this.companyId,
+          };
+
+          return this.companyService.addCompanies(updateCompany);
+        })
+      )
+      .subscribe({
+        next: () => this.goToCompaniesList(),
+        error: (error) => console.error(error),
+      });
   }
 }
