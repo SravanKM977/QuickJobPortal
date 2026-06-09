@@ -1,6 +1,9 @@
 <ng-container>
   @if(mode === 'add') {
   <div class="button-wrapper">
+    <a class="cancel-link" (click)="onCancel($event)">
+      Cancel
+    </a>
     <button type="submit" class="btn btn-primary">
       Add
     </button>

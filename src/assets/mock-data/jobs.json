@@ -2,15 +2,147 @@
   "members": [],
   "companies": [
     {
-      "id": "1",
       "name": "Google",
       "industry": "Technology",
       "location": "California",
       "website": "https://google.com",
       "email": "hr@google.com",
       "phone": "1111111111",
-      "employeeCount": 180000,
-      "description": "Global technology company"
+      "employeeCount": "180000",
+      "description": "Global technology company",
+      "id": "1"
+    },
+    {
+      "name": "Microsoft",
+      "industry": "Technology",
+      "location": "Washington",
+      "website": "",
+      "email": "careers@microsoft.com",
+      "phone": "2222222222",
+      "employeeCount": "221000",
+      "description": "",
+      "id": "7xbhElnsEA8"
+    },
+    {
+      "name": "Amazon",
+      "industry": "ECommerce",
+      "location": "Washington",
+      "website": "",
+      "email": "jobs@amazon.com",
+      "phone": "3333333333",
+      "employeeCount": "1540000",
+      "description": "",
+      "id": "wKRQirZXuvY"
+    },
+    {
+      "name": "Apple",
+      "industry": "Technology",
+      "location": "California",
+      "website": "",
+      "email": "recruiting@apple.com",
+      "phone": "4444444444",
+      "employeeCount": "161000",
+      "description": "",
+      "id": "UXSpgtrnFN0"
+    },
+    {
+      "name": "Meta",
+      "industry": "SocialMedia",
+      "location": "California",
+      "website": "",
+      "email": "talent@meta.com",
+      "phone": "5555555555",
+      "employeeCount": "67001",
+      "description": "",
+      "id": "DDfSzpHjZYY"
+    },
+    {
+      "name": "Netflix",
+      "industry": "Entertainment",
+      "location": "California",
+      "website": "",
+      "email": "jobs@netflix.com",
+      "phone": "6666666666",
+      "employeeCount": "14000",
+      "description": "",
+      "id": "vU6I-js7mvY"
+    },
+    {
+      "name": "Tesla",
+      "industry": "Automotive",
+      "location": "Texas",
+      "website": "",
+      "email": "careers@tesla.com",
+      "phone": "7777777777",
+      "employeeCount": "140000",
+      "description": "",
+      "id": "2mPxhi9fW6g"
+    },
+    {
+      "name": "Oracle",
+      "industry": "Technology",
+      "location": "Texas",
+      "website": "",
+      "email": "jobs@oracle.com",
+      "phone": "8888888888",
+      "employeeCount": "164000",
+      "description": "",
+      "id": "y6Cj-0CCPEg"
+    },
+    {
+      "name": "Salesforce",
+      "industry": "Technology",
+      "location": "California",
+      "website": "",
+      "email": "recruiting@salesforce.com",
+      "phone": "9999999999",
+      "employeeCount": "79000",
+      "description": "",
+      "id": "Q-918NAikrE"
+    },
+    {
+      "name": "Adobe",
+      "industry": "Technology",
+      "location": "California",
+      "website": "",
+      "email": "careers@adobe.com",
+      "phone": "1010101010",
+      "employeeCount": "30000",
+      "description": "",
+      "id": "6oUP8s9HILI"
+    },
+    {
+      "name": "Google",
+      "industry": "Technology",
+      "location": "California",
+      "website": "https://google.com",
+      "email": "hr@google.com",
+      "phone": "1111111111",
+      "employeeCount": "180001",
+      "description": "Global technology company",
+      "id": "y1OeaiX0jq4"
+    },
+    {
+      "name": "Google",
+      "industry": "Technology",
+      "location": "California",
+      "website": "https://google.com",
+      "email": "hr@google.com",
+      "phone": "1111111111",
+      "employeeCount": "180000",
+      "description": "Global technology company",
+      "id": "mfeDFxX99Vo"
+    },
+    {
+      "name": "Google",
+      "industry": "Technology",
+      "location": "California",
+      "website": "https://google.com",
+      "email": "hr@google.com",
+      "phone": "1111111111",
+      "employeeCount": "180000",
+      "description": "Global technology company",
+      "id": "gCa72fhz0zQ"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"

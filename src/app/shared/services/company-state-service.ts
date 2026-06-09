@@ -6,6 +6,7 @@ import { Company } from '../../features/company/models/company.model';
 })
 export class CompanyStateService {
   private companies = signal<Company[]>([]);
+  selectedCompany = signal<Company | null>(null);
 
   constructor() {}
 
@@ -35,7 +36,7 @@ export class CompanyStateService {
     );
   }
 
-  getCompanyById(id: number): Company | undefined {
-    return this.companies().find((company) => company.id === id);
+  setSelectedCompany(company: Company) {
+    this.selectedCompany.set(company);
   }
 }
